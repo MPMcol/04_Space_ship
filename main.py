@@ -1,3 +1,7 @@
+
+from game.components.game import Games
+
 if __name__ == "__main__":
-    print("Hello everyone!!!")
+    game = Games()
+    game.run()
     
