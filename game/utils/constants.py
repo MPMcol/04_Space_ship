@@ -5,7 +5,7 @@ import os
 TITLE = "Spaceships Game"
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
-FPS = 60
+FPS = 30
 IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 
 # Assets Constants
@@ -25,6 +25,6 @@ SPACESHIP_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_
 BULLET = pygame.image.load(os.path.join(IMG_DIR, "Bullet/bullet_1.png"))
 
 BULLET_ENEMY = pygame.image.load(os.path.join(IMG_DIR, "Bullet/bullet_2.png"))
-ENEMIES = (pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_1.png")), pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_2.png")), pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_3.png")))
+ENEMIES = (pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_1.png")), pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_2.png")), pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_3.png")),pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_4.png")))
 
 FONT_STYLE = 'freesansbold.ttf'
