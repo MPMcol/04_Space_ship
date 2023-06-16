@@ -1,5 +1,4 @@
 import pygame
-import random
 from pygame.sprite import Sprite
 from game.utils.constants import SPACESHIP, SCREEN_HEIGHT, SCREEN_WIDTH
 from game.components.bullets.bullet import Bullet
@@ -53,6 +52,7 @@ class Spaceship(Sprite):
         game.bullet_manager.add_bullet(bullet)
         
     def draw(self, screen):
+        print(f'x: {self.rect.x} y: {self.rect.y}')
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
     
