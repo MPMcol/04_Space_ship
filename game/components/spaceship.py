@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-from game.utils.constants import SPACESHIP, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import SPACESHIP, SCREEN_HEIGHT, SCREEN_WIDTH, DEFAULT_TYPE
 from game.components.bullets.bullet import Bullet
 
 
@@ -15,6 +15,9 @@ class Spaceship(Sprite):
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
         self.type= "player"
+        self.has_power_up = False
+        self.power_time_up = 0
+        self.power_up_type = DEFAULT_TYPE
 
 
     def move_left(self):
@@ -52,7 +55,12 @@ class Spaceship(Sprite):
         game.bullet_manager.add_bullet(bullet)
         
     def draw(self, screen):
-        print(f'x: {self.rect.x} y: {self.rect.y}')
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
-    
+    def reset(self):
+        self.rect.x = self.X_POS
+        self.rect.y = self.Y_POS
+
+    def set_image(self, size = (40,60), image = SPACESHIP):
+        self.image = image
+        self.image = pygame.transform.scale(self.image, size)

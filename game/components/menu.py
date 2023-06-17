@@ -34,7 +34,8 @@ class Menu:
             rect.centerx = self.HALF_SCREEN_WIDTH
             rect.centery = y + i * self.line_height
             screen.blit(rendered_line, rect)
-        self.rendered_lines = []
+        if len(self.rendered_lines) > 1:
+            self.rendered_lines = []
 
     def update_message(self, message_lines):
         for message in message_lines:
