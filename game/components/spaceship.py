@@ -16,7 +16,7 @@ class Spaceship(Sprite):
         self.rect.y = self.Y_POS
         self.type= "player"
         self.has_power_up = False
-        self.power_time_up = 0
+        self.power_up_time = 0
         self.power_up_type = DEFAULT_TYPE
 
 
@@ -52,7 +52,7 @@ class Spaceship(Sprite):
 
     def shoot(self, game):
         bullet = Bullet(self)
-        game.bullet_manager.add_bullet(bullet)
+        game.bullet_manager.add_bullet(bullet, self.power_up_type)
         
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
@@ -60,6 +60,10 @@ class Spaceship(Sprite):
     def reset(self):
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
+        self.set_image()
+        self.has_power_up = False
+        self.power_up_time = 0
+        self.power_up_type = DEFAULT_TYPE
 
     def set_image(self, size = (40,60), image = SPACESHIP):
         self.image = image

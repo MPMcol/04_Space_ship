@@ -1,7 +1,6 @@
 import pygame
+from game.utils.constants import SHIELD_TYPE, MACHINE_GUN_TYPE
 
-
-from game.utils.constants import SHIELD_TYPE
 class BulletManager:
     def __init__(self):
         self.bullets = []
@@ -35,10 +34,12 @@ class BulletManager:
         for bullet in self.bullets:
             bullet.draw(screen)
 
-    def add_bullet(self, bullet):
+    def add_bullet(self, bullet, power_up_type):
         if bullet.owner == 'enemy' and len(self.enemy_bullets) < 1:
             self.enemy_bullets.append(bullet)
-        elif bullet.owner == 'player' and len(self.bullets) < 3:
+        elif bullet.owner == 'player' and len(self.bullets) < 2:
+            self.bullets.append(bullet)
+        elif bullet.owner == 'player' and power_up_type == MACHINE_GUN_TYPE and len(self.bullets) < 10:
             self.bullets.append(bullet)
 
     def reset(self):
