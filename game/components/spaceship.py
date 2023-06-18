@@ -18,25 +18,26 @@ class Spaceship(Sprite):
         self.has_power_up = False
         self.power_up_time = 0
         self.power_up_type = DEFAULT_TYPE
+        self.increased_speed = False
 
 
     def move_left(self):
-        self.rect.x -= 10
+        self.rect.x -= 10 if not self.increased_speed else 20
         if self.rect.left <= 0:
             self.rect.x = SCREEN_WIDTH - self.rect.width
 
     def move_right(self):
-        self.rect.x += 10
+        self.rect.x += 10 if not self.increased_speed else 20
         if self.rect.right >= SCREEN_WIDTH:
             self.rect.x = 0
 
     def move_up(self):
         if self.rect.y > SCREEN_HEIGHT // 2:
-            self.rect.y -= 10
+            self.rect.y -= 10 if not self.increased_speed else 20
 
     def move_down(self):
         if self.rect.y < SCREEN_HEIGHT -70:
-            self.rect.y += 10
+            self.rect.y += 10 if not self.increased_speed else 20
     
     def update(self, user_input,game):
         if user_input[pygame.K_LEFT]:
@@ -64,7 +65,13 @@ class Spaceship(Sprite):
         self.has_power_up = False
         self.power_up_time = 0
         self.power_up_type = DEFAULT_TYPE
+        self.increased_speed = False
 
     def set_image(self, size = (40,60), image = SPACESHIP):
+        pos_x = self.rect.x
+        pos_y = self.rect.y
         self.image = image
         self.image = pygame.transform.scale(self.image, size)
+        self.rect = self.image.get_rect()
+        self.rect.x = pos_x
+        self.rect.y = pos_y

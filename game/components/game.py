@@ -1,6 +1,6 @@
 import pygame
 
-from game.utils.constants import BG, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, ICON, FONT_STYLE
+from game.utils.constants import BG, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, ICON, FONT_STYLE, ENVIROMENT_SOUND, SOUND_DEFAULT, SOUND_GAME_OVER
 from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager import EnemyManager
 from game.components.bullets.bullet_manager import BulletManager
@@ -11,10 +11,14 @@ from game.components.power_ups.power_up_manager import PowerUpManager
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
+
+        self.game_over_sound = pygame.mixer.Sound(SOUND_GAME_OVER)
+        self.enviroment_sound = pygame.mixer.Sound(ENVIROMENT_SOUND)
 
         self.playing = False
         self.game_speed = 10
@@ -44,6 +48,9 @@ class Game:
         pygame.quit()
 
     def run(self):
+        self.game_over_sound.stop()
+        self.enviroment_sound.set_volume(0.1)
+        self.enviroment_sound.play(-1)
         self.reset()
         self.playing = True
         while self.playing:
@@ -101,11 +108,14 @@ class Game:
                 text_rect.center = (300, 50)
                 self.screen.blit(text, text_rect)
             else:
+                default_sound = pygame.mixer.Sound(SOUND_DEFAULT)
+                default_sound.play()
                 self.player.has_power_up = False
                 self.player.power_up_type = DEFAULT_TYPE
                 self.player.power_up_time = 0
                 self.player.set_image()
                 self.power_up_manager.reset()
+                self.player.increased_speed = False
 
 
 
@@ -126,8 +136,14 @@ class Game:
         half_screen_width = SCREEN_WIDTH // 2
 
         if self.death_count.count == 0:
+            self.enviroment_sound.stop()
+            self.game_over_sound.set_volume(0.1)
+            self.game_over_sound.play(-1)
             self.menu.draw(self.screen)
         else:
+            self.enviroment_sound.stop()
+            self.game_over_sound.set_volume(0.1)
+            self.game_over_sound.play(-1)
             message = f'Game over. Press any key to restart.\nYour score: {self.score.count}\nHighest score: {self.highest_score.count}\nTotal deaths: {self.death_count.count}'            
             self.menu.update_message(message.splitlines())
             self.menu.draw(self.screen)

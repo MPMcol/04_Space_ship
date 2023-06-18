@@ -1,8 +1,9 @@
 import pygame
 import random
+from PIL import Image
 
 from pygame.sprite import Sprite
-from game.utils.constants import ENEMIES,SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import ENEMIES,SCREEN_HEIGHT, SCREEN_WIDTH, GIF_EXPLOTE, BULLET_SOUND
 from game.components.bullets.bullet import Bullet
 
 class Enemy(Sprite):
@@ -61,4 +62,3 @@ class Enemy(Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
-
