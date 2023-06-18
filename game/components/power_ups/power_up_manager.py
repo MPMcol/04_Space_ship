@@ -8,17 +8,14 @@ from game.utils.constants import SPACESHIP_SHIELD, SHIELD_TYPE, IMAGE_MACHINE_GU
 class PowerUpManager:
     def __init__(self):
         self.power_ups = []
-        self.when_appears = random.randint(2000, 5000)
-        self.duration = 10
-        self.power_ups_available = {SHIELD_TYPE: Shield(), MACHINE_GUN_TYPE: MachineGun()}
-
-
+        self.when_appears = pygame.time.get_ticks() + 8000
+        self.duration = 6
+        self.power_ups_available = {0: Shield, 1: MachineGun}
+        
     def generate_power_up(self):
-        power_up = self.power_ups_available[random.choice(list(self.power_ups_available.keys()))]
-        print(power_up.type)
-        self.when_appears += random.randint(2000, 5000)
+        power_up = self.power_ups_available[random.randint(0, len(self.power_ups_available) - 1)]()
+        self.when_appears = pygame.time.get_ticks() + 8000
         self.power_ups.append(power_up)
-        print(len(self.power_ups))
 
     def update(self, game):
         current_time = pygame.time.get_ticks()
@@ -27,12 +24,13 @@ class PowerUpManager:
             self.generate_power_up()
 
         for power_up in self.power_ups:
-            power_up.update(game.game_speed, self.power_ups, game)
+            power_up.update(self.power_ups)
             if game.player.rect.colliderect(power_up):
                 power_up.start_time = pygame.time.get_ticks()
                 game.player.power_up_type = power_up.type
                 game.player.has_power_up = True
                 game.player.power_up_time = power_up.start_time + (self.duration * 1000)
+                self.when_appears = game.player.power_up_time + 8000
                 if power_up.type == SHIELD_TYPE:
                     game.player.set_image((65,75),SPACESHIP_SHIELD)
                 else:
@@ -45,4 +43,4 @@ class PowerUpManager:
 
     def reset(self):
         self.power_ups.clear()
-        self.when_appears = random.randint(2000, 5000)
+        self.when_appears = pygame.time.get_ticks() + 8000

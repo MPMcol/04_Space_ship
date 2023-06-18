@@ -10,19 +10,13 @@ class PowerUp(Sprite):
         self.image = pygame.transform.scale(self.image, (40, 40))
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(120, (SCREEN_WIDTH - 120))
-        self.rect.y = 10
-        self.start_time = 0
+        self.rect.y = random.randint((SCREEN_HEIGHT / 2), (SCREEN_HEIGHT - 80))
+        self.start_time = pygame.time.get_ticks()
 
-    def update(self, game_speed, power_ups, game):
-        if self.start_time == 0:
-            self.rect.y += game_speed
-        if self.rect.y < 0 or self.rect.y >= SCREEN_HEIGHT:
+    def update(self, power_ups):
+        if pygame.time.get_ticks() >= self.start_time + 4000:
             power_ups.remove(self)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
-    def reset(self):
-        self.rect.x = random.randint(120, SCREEN_WIDTH - 120)
-        self.rect.y = 0
-        self.start_time = 0

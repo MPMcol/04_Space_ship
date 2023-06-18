@@ -23,7 +23,7 @@ class BulletManager:
                 self.enemy_bullets.remove(bullet)
                 if game.player.power_up_type != SHIELD_TYPE:
                     game.playing = False
-                    pygame.time.delay(1000)
+                    pygame.time.delay(1500)
                     game.death_count.update()
                     game.calculate_highest_score()
                 break
@@ -35,7 +35,7 @@ class BulletManager:
             bullet.draw(screen)
 
     def add_bullet(self, bullet, power_up_type):
-        if bullet.owner == 'enemy' and len(self.enemy_bullets) < 1:
+        if bullet.owner == 'enemy' and len(self.enemy_bullets) < 2:
             self.enemy_bullets.append(bullet)
         elif bullet.owner == 'player' and len(self.bullets) < 2:
             self.bullets.append(bullet)
