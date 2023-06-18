@@ -16,7 +16,6 @@ IMAGE_MACHINE_GUN = pygame.image.load(os.path.join(IMG_DIR, 'Other/machineGun.pn
 IMAGE_SPEED = pygame.image.load(os.path.join(IMG_DIR, 'Other/speed.png'))
 IMAGE_MINI_SPACESHIP = pygame.image.load(os.path.join(IMG_DIR, 'Other/miniSpaceship.png'))
 
-GIF_EXPLOTE = pygame.image.load(os.path.join(IMG_DIR, 'Other/explote.gif'))
 
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
